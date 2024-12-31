@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
+import {AuthService} from "../../auth.service";
 
 @Component({
   selector: 'app-login',
@@ -12,38 +13,49 @@ import {CommonModule} from "@angular/common";
 
 
 export class LoginComponent {
-  email: string = '';
+  email: string = ''; // Liaison avec ngModel
   password: string = '';
-  emailError: string = '';
-  passwordError: string = '';
+  emailError: string = ''; // Message d'erreur email
+  passwordError: string = ''; // Message d'erreur mot de passe
+  serverError: string = ''; // Message d'erreur serveur
+
+  constructor(private authService: AuthService) {}
 
   // Validation du formulaire
   validateForm() {
-    // Validation de l'email
-    if (!this.email) {
-      this.emailError = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(this.email)) {
-      this.emailError = 'Please enter a valid email address';
-    } else {
-      this.emailError = '';
-    }
+    // Validation pour email
+    this.emailError = !this.email
+      ? 'Email is required'
+      : !/\S+@\S+\.\S+/.test(this.email)
+        ? 'Please enter a valid email address'
+        : '';
 
-    // Validation du mot de passe
-    if (!this.password) {
-      this.passwordError = 'Password is required';
-    } else if (this.password.length < 6) {
-      this.passwordError = 'Password must be at least 6 characters';
-    } else {
-      this.passwordError = '';
-    }
+    // Validation pour le mot de passe
+    this.passwordError =
+      !this.password
+        ? 'Password is required'
+        : this.password.length < 6
+          ? 'Password must be at least 6 characters'
+          : '';
   }
 
   // Méthode pour soumettre le formulaire
   onSubmit() {
     this.validateForm();
+
+    // Si il y a des erreurs, ne pas envoyer la requête
     if (!this.emailError && !this.passwordError) {
-      console.log('Form Submitted');
-      // Ajouter ici la logique pour gérer l'authentification
+      this.authService.login(this.email, this.password).subscribe({
+        next: (response) => {
+          console.log('Login successful:', response);
+          // Sauvegarder le token (par exemple dans localStorage)
+          localStorage.setItem('token', response.token);
+        },
+        error: (err) => {
+          console.error('Login failed:', err);
+          this.serverError = 'Invalid email or password'; // Adapter le message selon le backend
+        },
+      });
     }
   }
 }
