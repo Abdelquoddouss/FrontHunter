@@ -3,6 +3,7 @@ import {LoginComponent} from './auth/login/login.component';
 import {NavbarComponent} from "./navbar/navbar.component";
 import {HerosComponent} from "./landing/heros/heros.component";
 import {TypeComponent} from "./type/type.component";
+import {CardsComponent} from "./cards/cards.component";
 
 
 export const routes: Routes = [
@@ -18,5 +19,7 @@ export const routes: Routes = [
 
   { path: 'home', component: HerosComponent },
 
-  {path: 'type', component:TypeComponent}
+  {path: 'type', component:TypeComponent},
+  {path: 'cards', component:CardsComponent}
+
 ];
