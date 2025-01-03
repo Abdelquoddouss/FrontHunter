@@ -20,6 +20,5 @@ export const routes: Routes = [
   { path: 'home', component: HerosComponent },
 
   {path: 'type', component:TypeComponent},
-  {path: 'cards', component:CardsComponent}
-
+  { path: 'cards', component: CardsComponent }
 ];
