@@ -46,11 +46,9 @@ export class CompititionComponent implements OnInit {
       },
       (error) => {
         console.error('Erreur lors de la participation:', error);
-        const errorMessage = error.status === 401
-          ? 'Non autorisé. Veuillez vous reconnecter.'
-          : error.status === 400
-            ? 'Requête invalide. Vérifiez vos données.'
-            : 'Erreur lors de la participation. Veuillez réessayer.';
+
+        const errorMessage = error.error?.error|| 'Erreur lors de la participation. Veuillez réessayer.';
+
         Swal.fire('Erreur', errorMessage, 'error');
       }
     );
