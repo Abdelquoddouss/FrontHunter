@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CompetitionService } from "../service/competition-service.service";
 import { CommonModule } from "@angular/common";
 import { NavbarComponent } from "../navbar/navbar.component";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-compitition',
@@ -21,11 +22,11 @@ export class CompititionComponent implements OnInit {
         if (data && data.content) {
           this.competitions = data.content;
         } else {
-          console.error('Format de données inattendu :', data);
+          Swal.fire('Erreur', 'Format de données inattendu.', 'error');
         }
       },
       (error) => {
-        console.error('Erreur lors du chargement des compétitions :', error);
+        Swal.fire('Erreur', 'Erreur lors du chargement des compétitions.', 'error');
       }
     );
   }
@@ -33,15 +34,15 @@ export class CompititionComponent implements OnInit {
   participate(competitionId: string): void {
     const decodedToken = this.decodeToken();
     if (!decodedToken || !decodedToken.id) {
-      alert('Vous devez être connecté pour participer.');
+      Swal.fire('Non autorisé', 'Vous devez être connecté pour participer.', 'warning');
       return;
     }
 
     const userId = decodedToken.id;
     this.competitionService.registerParticipation(userId, competitionId).subscribe(
       (response) => {
-        console.log('Participation response:', response);
-        alert('Vous avez participé avec succès à cette compétition.');
+        Swal.fire('Succès', 'Vous avez participé avec succès à cette compétition.', 'success');
+
       },
       (error) => {
         console.error('Erreur lors de la participation:', error);
@@ -50,7 +51,7 @@ export class CompititionComponent implements OnInit {
           : error.status === 400
             ? 'Requête invalide. Vérifiez vos données.'
             : 'Erreur lors de la participation. Veuillez réessayer.';
-        alert(errorMessage);
+        Swal.fire('Erreur', errorMessage, 'error');
       }
     );
   }
