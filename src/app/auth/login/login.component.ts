@@ -57,10 +57,10 @@ export class LoginComponent {
   redirectUserBasedOnRole(role: string): void {
     if (role === 'ADMIN') {
       this.router.navigate(['/home']);
-    } else if (role === 'USER') {
-      this.router.navigate(['/user-dashboard']);
-    } else {
-      this.router.navigate(['/unknown-role']);
+    } else if (role === 'MEMBER') {
+      this.router.navigate(['/home']);
+    } else if (role === 'JURY'){
+      this.router.navigate(['/home']);
     }
   }
 

@@ -26,9 +26,19 @@ export class CompetitionService {
 
   registerParticipation(userId: string, competitionId: string): Observable<any> {
     const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('Token not found. User might not be logged in.');
+      return new Observable(observer => {
+        observer.error({ status: 401, message: 'Token not found' });
+      });
+    }
+
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     const body = { userId, competitionId };
+
+    console.log('Sending participation data:', body);
     return this.http.post<any>(`${this.participationUrl}/register`, body, { headers });
   }
+
 
 }
