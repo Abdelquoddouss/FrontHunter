@@ -14,9 +14,18 @@
             <strong>Date:</strong> {{ competition?.date | date: 'short' }}<br />
             <strong>Min Participants:</strong> {{ competition?.minParticipants }}<br />
             <strong>Max Participants:</strong> {{ competition?.maxParticipants }}<br />
-          </p>
+            <strong>participation Count:</strong> {{ competition?.participationCount }}<br />
+
+          </p><button
+          class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          (click)="participate(competition.id)">
+          Participer
+        </button>
+
         </div>
+
       </div>
+
     </div>
   </div>
 </section>

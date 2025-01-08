@@ -1,16 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CompetitionServiceService } from './competition-service.service';
+import { CompetitionService } from './competition-service.service';
 
-describe('CompetitionServiceService', () => {
-  let service: CompetitionServiceService;
+describe('CompetitionService', () => {
+  let service: CompetitionService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CompetitionServiceService);
+    service = TestBed.inject(CompetitionService);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 });
+

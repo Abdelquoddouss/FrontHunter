@@ -12,13 +12,13 @@
             <strong>Min Participants:</strong> {{ competition?.minParticipants }}<br />
             <strong>Max Participants:</strong> {{ competition?.maxParticipants }}<br />
           </p>
-          <a class="text-green-500 inline-flex items-center hover:text-green-400">
-            Learn More
-            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14"></path>
-              <path d="M12 5l7 7-7 7"></path>
-            </svg>
-          </a>
+
+          <button
+          class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          (click)="participate(competition.id)">
+          Participer
+        </button>
+
         </div>
       </div>
     </div>

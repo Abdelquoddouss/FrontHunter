@@ -19,14 +19,36 @@ export class CardsComponent implements OnInit {
 
   ngOnInit(): void {
     this.competitionService.getCompetitions().subscribe(
-      data => {
-        console.log(data);  // Vérifier la structure des données
-        this.competitions = data.content;
+      (data) => {
+        if (data && data.content) {
+          this.competitions = data.content;
+        } else {
+          console.error('Format de données inattendu :', data);
+        }
       },
-      error => {
-        console.error('Erreur de récupération des compétitions:', error);
+      (error) => {
+        console.error('Erreur lors de la récupération des compétitions :', error);
       }
     );
   }
+
+  participate(competitionId: string): void {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      alert('Vous devez être connecté pour participer.');
+      return;
+    }
+
+    this.competitionService.registerParticipation(userId, competitionId).subscribe(
+      (response) => {
+        alert('Vous avez participé avec succès à cette compétition.');
+      },
+      (error) => {
+        console.error('Erreur lors de la participation :', error);
+        alert('Erreur lors de la participation. Veuillez réessayer.');
+      }
+    );
+  }
+
 
 }
