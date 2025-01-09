@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
-import { AuthService } from "../../auth.service";
+import { AuthService } from "../../service/auth.service";
 import {jwtDecode} from "jwt-decode";
 import {Router} from "@angular/router";
 

@@ -5,6 +5,8 @@ import {HerosComponent} from "./landing/heros/heros.component";
 import {TypeComponent} from "./type/type.component";
 import {CardsComponent} from "./cards/cards.component";
 import {CompititionComponent} from "./compitition/compitition.component";
+import {SidebarComponent} from "./sidebar/sidebar.component";
+import {CrudUserComponent} from "./crud-user/crud-user.component";
 
 
 export const routes: Routes = [
@@ -23,6 +25,11 @@ export const routes: Routes = [
   {path: 'type', component:TypeComponent},
   { path: 'cards', component: CardsComponent },
 
-  { path: 'comptition', component: CompititionComponent }
+  { path: 'comptition', component: CompititionComponent },
+
+  {path: 'user', component: CrudUserComponent},
+
+
+
 
 ];
